@@ -13,21 +13,16 @@
 
 #include <miniaudio.h>
 #include "bullet3.h" // Vector3
-
+#include <Poco/RefCountedObject.h>
 class asIScriptEngine;
 namespace sound2
 {
 class audio_engine;
 class mixer;
 class sound;
-
-bool init_sound();
-bool refresh_audio_devices();
-
-class audio_node {
+class audio_node: public Poco::RefCountedObject
+{
 	public:
-		virtual void duplicate() = 0; // reference counting
-		virtual void release() = 0;
 		virtual audio_engine* get_engine() const = 0;
 		virtual unsigned int get_input_bus_count() = 0;
 		virtual unsigned int get_output_bus_count() = 0;
@@ -47,15 +42,13 @@ class audio_node {
 		virtual unsigned long long get_time() = 0;
 		virtual bool set_time(unsigned long long local_time) = 0;
 };
-	class audio_engine {
+	class audio_engine: public Poco::RefCountedObject {
 	public:
 		enum engine_flags {
 			DURATIONS_IN_FRAMES = 1, // If set, all durations possible will expect a value in PCM frames rather than milliseconds.
 			NO_AUTO_START = 2, // if set, audio_engine::start must be called after initialization.
 			NO_DEVICE = 4 // If set, audio_engine::read() must be used to receive raw audio samples from the engine instead.
 		};
-		virtual void duplicate() = 0; // reference counting
-		virtual void release() = 0;
 		virtual audio_node* get_endpoint() = 0;
 		virtual bool read(void* buffer, unsigned long long frame_count, unsigned long long* frames_read) = 0;
 		virtual CScriptArray* read(unsigned long frame_count) = 0;
@@ -92,7 +85,7 @@ class audio_node {
 		virtual mixer* new_mixer() = 0;
 		virtual sound* new_sound() = 0;
 };
-class mixer {
+class mixer: public Poco::RefCountedObject {
 	public:
 		virtual void duplicate() = 0; // reference counting
 		virtual void release() = 0;

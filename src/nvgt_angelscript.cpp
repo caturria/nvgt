@@ -60,6 +60,7 @@
 #include "scriptstuff.h"
 #include "serialize.h"
 #include "sound.h"
+#include "sound2.h"
 #include "srspeech.h"
 #include "system_fingerprint.h"
 #include "threading.h"
@@ -446,6 +447,7 @@ int ConfigureEngine(asIScriptEngine* engine) {
 	engine->SetDefaultAccessMask(NVGT_SUBSYSTEM_SOUND);
 	engine->BeginConfigGroup("sound");
 	RegisterScriptSound(engine);
+	sound2::RegisterSoundsystem(engine);
 	engine->EndConfigGroup();
 	engine->SetDefaultAccessMask(NVGT_SUBSYSTEM_UNCLASSIFIED);
 	engine->BeginConfigGroup("system_fingerprint");

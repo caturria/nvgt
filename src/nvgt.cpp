@@ -48,6 +48,7 @@
 #include "random.h" // random_seed()
 #include "serialize.h" // current location of g_StringTypeid (subject to change)
 #include "sound.h"
+#include "sound_service.h"
 #include "srspeech.h"
 #include "UI.h" // message
 #include "version.h"
@@ -320,6 +321,7 @@ protected:
 		InputDestroy();
 		if (g_ScriptEngine) g_ScriptEngine->ShutDownAndRelease();
 		g_ScriptEngine = nullptr;
+		sound2::sound_service::destroy();
 	}
 };
 

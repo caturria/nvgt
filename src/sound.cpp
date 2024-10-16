@@ -1992,6 +1992,7 @@ sound_environment* ScriptSound_Environment_Factory() {
 	return new sound_environment();
 }
 void RegisterScriptSound(asIScriptEngine* engine) {
+	//return;
 	engine->RegisterGlobalProperty("pack@ sound_default_pack", &g_sound_default_pack);
 	engine->RegisterFuncdef(_O("void sound_close_callback(string)"));
 	engine->RegisterFuncdef(_O("uint sound_length_callback(string)"));
