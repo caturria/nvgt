@@ -1154,9 +1154,6 @@ void set_sound_default_storage(pack_interface *obj) {
 		g_sound_service->set_default_protocol(sound_service::fs_protocol_slot);
 		return;
 	}
-	std::shared_ptr < const pack_interface > old_storage = std::static_pointer_cast < const pack_interface>(g_sound_service->get_protocol_directive(g_pack_protocol_slot));
-	if (old_storage)
-		old_storage->release();
 	g_sound_service->set_protocol_directive(g_pack_protocol_slot, std::shared_ptr < const pack_interface > (obj->make_immutable()));
 	g_sound_service->set_default_protocol(g_pack_protocol_slot);
 }
